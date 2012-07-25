@@ -1,0 +1,234 @@
+<!doctype>
+<html>
+<head>
+	<title>WoodMenu - tree test page</title>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	
+	<script type="text/javascript" src="jquery.entando.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			jQuery("#pageTree").EntandoWoodMenu({
+				menuToggler: "subTreeToggler",
+				menuRetriever: function(toggler) {
+					return $(toggler).parent().children("ul");
+				},
+				showTools: true, 
+				onOpen: function(toggler, menu) {
+					//console.log("open", toggler, menu);
+				},
+				onClose: function(toggler, menu) {
+					//console.log("close", toggler, menu);
+				},
+				onStart: function() {
+					this.collapseAll();
+				},
+				expandAllLabel: "Expand all",
+				collapseAllLabel: "Collapse All"
+			});
+			jQuery(".menu.vertical").EntandoWoodMenu({
+				menuToggler: "subMenuToggler",
+				menuRetriever: function(toggler) {
+					return $("#"+toggler.attr("rel"));
+				},
+				showTools: true, 
+				onOpen: function(toggler, menu) {
+					//console.log("open", toggler, menu);
+				},
+				onClose: function(toggler, menu) {
+					//console.log("close", toggler, menu);
+				},
+				expandAllLabel: "Expand all",
+				collapseAllLabel: "Collapse All"
+			});
+		});
+	</script>
+
+	<style>
+		.noscreen {
+			position: absolute;
+			top: -1000em;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+		}
+		/* */ 
+
+		#pageTree .closedmenu {
+			background-color: red;
+		}
+		#pageTree .closedmenu > label {
+			background-color: yellow;
+		}
+
+		#pageTree .openmenu > label {
+			background-color: lime;
+		}
+		#pageTree .openmenu {
+			background-color: green;
+		}
+		/* */ 
+		
+		.menu.vertical .subMenuToggler {
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+<ul id="pageTree">
+	<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage" value="homepage" class="subTreeToggler tree_homepage"><label for="fagianonode_homepage">Home</label>
+<ul class="treeToggler" id="tree_homepage">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_news_archive" value="news_archive" class="subTreeToggler tree_news_archive"><label for="fagianonode_news_archive">News</label>
+<ul class="treeToggler" id="tree_news_archive">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_news_style1" value="news_style1"><label for="fagianonode_news_style1">News Archive</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_news_style2" value="news_style2"><label for="fagianonode_news_style2">News Archive</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_news_style3" value="news_style3"><label for="fagianonode_news_style3">News Archive</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_events" value="events" class="subTreeToggler tree_events"><label for="fagianonode_events">Events</label>
+<ul class="treeToggler" id="tree_events">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_daily_events" value="daily_events"><label for="fagianonode_daily_events">Events of the day</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_reports" value="reports" class="subTreeToggler tree_reports"><label for="fagianonode_reports">Reports</label>
+<ul class="treeToggler" id="tree_reports">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_reportview" value="reportview"><label for="fagianonode_reportview">Report Details</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_service" value="service" class="subTreeToggler tree_service"><label for="fagianonode_service">Service</label>
+<ul class="treeToggler" id="tree_service">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_notfound" value="notfound"><label for="fagianonode_notfound">Page not found</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_errorpage" value="errorpage"><label for="fagianonode_errorpage">Error page</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_login" value="login"><label for="fagianonode_login">Login</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_newsview" value="newsview"><label for="fagianonode_newsview">Read the News</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_search" value="search"><label for="fagianonode_search">Search Results</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_profile" value="profile"><label for="fagianonode_profile">Profile Edit</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_configure_latest_documents" value="configure_latest_documents"><label for="fagianonode_configure_latest_documents">Latest Documents</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_contentsview" value="contentsview"><label for="fagianonode_contentsview">Read the content</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_fastcontentedit" value="fastcontentedit"><label for="fagianonode_fastcontentedit">Frontent Content Editing</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_formview" value="formview"><label for="fagianonode_formview">Dynamic Form</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_entando_portal_login" value="entando_portal_login"><label for="fagianonode_entando_portal_login">Entando Portal Login</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_quest_suveys" value="quest_suveys" class="subTreeToggler tree_quest_suveys"><label for="fagianonode_quest_suveys">Questionnaires and Surveys</label>
+<ul class="treeToggler" id="tree_quest_suveys">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_surveys_list" value="surveys_list"><label for="fagianonode_surveys_list">Active Questionnaires</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_surveys_archive" value="surveys_archive"><label for="fagianonode_surveys_archive">Questionnaires Archive</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_survey_detail" value="survey_detail"><label for="fagianonode_survey_detail">Questionnaire Details</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_survey_results" value="survey_results"><label for="fagianonode_survey_results">Questionnaire Results</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_polls_list" value="polls_list"><label for="fagianonode_polls_list">Active Polls</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_polls_archive" value="polls_archive"><label for="fagianonode_polls_archive">Polls Archive</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_poll_detail" value="poll_detail"><label for="fagianonode_poll_detail">Poll Details</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_poll_results" value="poll_results"><label for="fagianonode_poll_results">Poll Details</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_video_archive" value="video_archive"><label for="fagianonode_video_archive">Video Archive</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_apis" value="apis"><label for="fagianonode_apis">APIs</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_crowdlist" value="crowdlist" class="subTreeToggler tree_crowdlist"><label for="fagianonode_crowdlist">Crowd Sourcing</label>
+<ul class="treeToggler" id="tree_crowdlist">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_viewidea" value="viewidea"><label for="fagianonode_viewidea">Idea Details</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_entryidea" value="entryidea"><label for="fagianonode_entryidea">New Idea</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_blog" value="blog" class="subTreeToggler tree_blog"><label for="fagianonode_blog">Blog</label>
+<ul class="treeToggler" id="tree_blog">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_blogview" value="blogview"><label for="fagianonode_blogview">Read Blog Article</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_analytics" value="analytics" class="subTreeToggler tree_analytics"><label for="fagianonode_analytics">Analytics</label>
+<ul class="treeToggler" id="tree_analytics">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_crmleads" value="crmleads"><label for="fagianonode_crmleads">Analysis Crm Leads</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_etlanalysis" value="etlanalysis"><label for="fagianonode_etlanalysis">Defered Analysis</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage_users" value="homepage_users" class="subTreeToggler tree_homepage_users"><label for="fagianonode_homepage_users">Homepages</label>
+<ul class="treeToggler" id="tree_homepage_users">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage_public_user" value="homepage_public_user" class="subTreeToggler tree_homepage_public_user"><label for="fagianonode_homepage_public_user">Public User</label>
+<ul class="treeToggler" id="tree_homepage_public_user">
+		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_campaignfrm" value="campaignfrm"><label for="fagianonode_campaignfrm">Campaign Form</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_thankyoureg" value="thankyoureg"><label for="fagianonode_thankyoureg">Thank You for Register</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage_registered_user" value="homepage_registered_user"><label for="fagianonode_homepage_registered_user">Registered User</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage_company_user" value="homepage_company_user"><label for="fagianonode_homepage_company_user">Company User</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage_admin_user" value="homepage_admin_user"><label for="fagianonode_homepage_admin_user">Admin User</label>
+</li></ul>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_contacts" value="contacts"><label for="fagianonode_contacts">Contacts</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_crm" value="crm"><label for="fagianonode_crm">Crm</label>
+</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_esbconsole" value="esbconsole"><label for="fagianonode_esbconsole">ESB</label>
+</li></ul>
+</li></ul>
+
+
+<hr />
+
+<ul class="menu vertical">
+		<li class="closedmenu"><a href="#" rel="fagiano_utenze" id="menu_utenze" class="subMenuToggler">Accounts</a>
+			<div class="menuToggler noscreen" id="fagiano_utenze"><div class="menuToggler-1"><div class="menuToggler-2">
+				<ul>
+					<li><a href="do/User/intro.action">Users</a></li>
+					<li><a href="do/Role/intro.action">User Roles</a></li>
+				</ul>
+			</div></div></div>
+		</li>
+		<li><a href="do/Group/intro.action" id="menu_gruppi">Groups</a></li>
+		<li><a href="do/Category/viewTree.action" id="menu_categorie">Categories</a></li>
+		<li class="closedmenu"><a href="#" rel="fagiano_lingue" class="subMenuToggler" id="menu_lingue">Languages</a>
+			<div class="menuToggler noscreen" id="fagiano_lingue"><div class="menuToggler-1"><div class="menuToggler-2">
+				<ul>
+					<li><a href="do/Lang/list.action">Languages List</a></li>
+					<li><a href="do/LocaleString/intro.action">Labels</a></li>
+				</ul>
+			</div></div></div>
+		</li>
+		<li class="closedmenu"><a href="#" rel="fagiano_plugins" class="subMenuToggler" id="menu_plugins">Plugins</a>
+			<div class="menuToggler noscreen" id="fagiano_plugins"><div class="menuToggler-1"><div class="menuToggler-2">
+				<ul>		
+					<li class="closedmenu"><a href="#" rel="fagiano_jpcrowdsourcing" id="menu_jpcrowdsourcing" class="subMenuToggler" tabindex="1">Crowd Sourcing</a>
+						<div id="fagiano_jpcrowdsourcing" class="menuToggler noscreen"><div class="menuToggler-1"><div class="menuToggler-2">
+							<ul>
+								<li><a href="do/jpcrowdsourcing/Idea/list.action" tabindex="2">Ideas</a></li>
+								<li><a href="do/jpcrowdsourcing/Idea/Comment/list.action" tabindex="3">Comments</a></li>
+								<li><a href="do/jpcrowdsourcing/Config/entryConfig.action" tabindex="4">Configure</a></li>
+							</ul>
+						</div></div></div>
+					</li>
+					<li class="closedmenu"><a href="#" rel="fagiano_jpmail" id="fagiano_menu_jpmail" class="subMenuToggler" tabindex="5">eMail Management</a>
+						<div id="fagiano_jpmail" class="menuToggler noscreen">
+							<div class="menuToggler-1">
+								<div class="menuToggler-2">
+									<ul>
+										<li><a href="do/jpmail/MailConfig/editSmtp.action" tabindex="6">Smtp</a></li>
+										<li><a href="do/jpmail/MailConfig/viewSenders.action" tabindex="7">Senders</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li><a href="do/jpavatar/Avatar/edit.action" tabindex="8">Avatar</a></li>
+					<li class="closedmenu"><a href="#" rel="fagiano_jpwebdynamicform" id="menu_jpwebdynamicform" class="subMenuToggler">Dynamic Web Forms</a>
+						<div class="menuToggler noscreen" id="fagiano_jpwebdynamicform"><div class="menuToggler-2"><div class="menuToggler-2">
+							<ul>
+								<li><a href="do/jpwebdynamicform/Message/Operator/list.action" tabindex="9">Message List</a></li>
+								<li><a href="do/jpwebdynamicform/Message/Config/list.action" tabindex="10">Configuration</a></li>
+								<li><a href="do/Entity/initViewEntityTypes.action?entityManagerName=jpwebdynamicformMessageManager" tabindex="11">Message Types</a></li>
+							</ul>
+						</div></div></div>
+					</li>
+					<li><a href="do/jpmyportalplus/Config/edit.action" tabindex="12">My Portal</a></li>
+					<li class="closedmenu"><a href="#" rel="fagiano_jpuserprofile" id="menu_jpuserprofile" class="subMenuToggler" tabindex="13">Profile Management</a>
+						<div id="fagiano_jpuserprofile" class="menuToggler noscreen"><div class="menuToggler-1"><div class="menuToggler-2">
+							<ul>
+								<li><a href="do/jpuserprofile/Profile/edit.action" tabindex="14">Your Profile</a></li>
+								<li><a href="do/jpuserprofile/Search/list.action" tabindex="15">Profiles</a></li>
+								<li><a href="do/Entity/initViewEntityTypes.action?entityManagerName=jpuserprofileUserProfileManager" tabindex="16">Profile Types</a></li>
+							</ul>
+						</div></div></div>
+					</li><li class="closedmenu"><a href="#" rel="fagiano_jpforum" id="menu_jpforum" class="subMenuToggler">Forum</a>
+					<div id="fagiano_jpforum" class="menuToggler noscreen"><div class="menuToggler-1"><div class="menuToggler-2">
+						<ul>
+							<li><a href="do/jpforum/Section/viewTree.action" tabindex="17">Forum Sections</a></li>
+							<li><a href="do/jpforum/Config/view.action" tabindex="18">Forum Configuration</a></li>
+						</ul>
+					</div></div></div>
+				</li>
+			</ul>
+		</div></div></div>
+	</li>
+	
+</ul>
+
+
+</body>
+</html>

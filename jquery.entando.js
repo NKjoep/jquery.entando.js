@@ -21,36 +21,49 @@
 	var WoodMenu = function (el, opt) {
 		var Wood = this.Wood = $(el);
 		var opt = this.opt = opt;
-
 		var getSubMenu = this.getSubMenu = opt.menuRetriever;
 		var expandAll = this.expandAll = function() {
 			Wood.find("."+opt.menuToggler).each(function(index, toggler){
-				var toggler= $(toggler);
-				var submenu = getSubMenu(toggler);
-				var togglerParent = toggler.parent();
-				submenu.removeClass(opt.hideClass);
-				submenu.addClass(opt.showClass);
-				togglerParent.removeClass(opt.closedClass);
-				togglerParent.addClass(opt.openClass);
-				if (opt.onOpen) {
-					opt.onOpen(toggler, submenu);
-				}
-				
+				openWood($(toggler));
 			});
 		};
 		var collapseAll = this.collapseAll = function() {
 			Wood.find("."+opt.menuToggler).each(function(index, toggler){
-					var toggler= $(toggler);
-					var submenu = getSubMenu(toggler);
-					var togglerParent = toggler.parent();
-					submenu.addClass(opt.hideClass);
-					submenu.removeClass(opt.showClass);
-					togglerParent.addClass(opt.closedClass);
-					togglerParent.removeClass(opt.openClass);
-					if (opt.onClose) {
-						opt.onOpen(toggler, submenu);
-					}
-				});
+				closeWood($(toggler));
+			});
+		};
+		var openWood = this.openWood = function(toggler) {
+			var submenu = getSubMenu(toggler);
+			var togglerParent = toggler.parent();
+			submenu.addClass(opt.showClass);
+			submenu.removeClass(opt.hideClass);
+			togglerParent.removeClass(opt.closedClass);
+			togglerParent.addClass(opt.openClass);
+			if (opt.onOpen) {
+				opt.onOpen(toggler, submenu);
+			}
+		};
+		var closeWood = this.closeWood = function(toggler) {
+			var submenu = getSubMenu(toggler);
+			var togglerParent = toggler.parent();
+			submenu.removeClass(opt.showClass);
+			submenu.addClass(opt.hideClass);
+			togglerParent.addClass(opt.closedClass);
+			togglerParent.removeClass(opt.openClass);
+			if (opt.onClose) {
+				opt.onClose(toggler, submenu);
+			}
+		};
+		var toggleWood = this.toggleWood = function(toggler) {
+			var submenu = getSubMenu(toggler);
+			var togglerParent = toggler.parent();
+			submenu.toggleClass(opt.hideClass);
+			if (submenu.hasClass(opt.hideClass)) {
+				closeWood(toggler);
+			}
+			else {
+				openWood(toggler);
+			}
 		};
 
 		if (opt.showTools.toString()=='true') {
@@ -67,29 +80,10 @@
 			});
 
 		}
-
 		$(el).on('click', "."+opt.menuToggler, function(ev) {
 			ev.preventDefault();
 			var toggler = $(ev.target);
-			var submenu = getSubMenu(toggler);
-			var togglerParent = toggler.parent();
-			submenu.toggleClass(opt.hideClass);
-			if (submenu.hasClass(opt.hideClass)) {
-				submenu.removeClass(opt.showClass);
-				togglerParent.addClass(opt.closedClass);
-				togglerParent.removeClass(opt.openClass);
-				if (opt.onClose) {
-					opt.onClose(toggler, submenu);
-				}
-			}
-			else {
-				submenu.addClass(opt.showClass);
-				togglerParent.removeClass(opt.closedClass);
-				togglerParent.addClass(opt.openClass);
-				if (opt.onOpen) {
-					opt.onOpen(toggler, submenu);
-				}
-			}
+			toggleWood(toggler);
 		});
 		if (opt.onStart) {
 			opt.onStart.apply(this);
@@ -98,7 +92,7 @@
 	};
 
 	$.fn.EntandoWoodMenu = function (userreqopt) {
-		var options = $.extend(defaultOptions, userreqopt);
+		var options = $.extend({},defaultOptions, userreqopt);
 		return this.each(function () {
 			var $this = $(this);
 			var data = $this.data(sign);
