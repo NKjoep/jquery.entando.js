@@ -1,0 +1,117 @@
+<!doctype>
+<html>
+<head>
+	<title>WoodMenu test page</title>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	
+	<script type="text/javascript" src="jquery.entando.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			jQuery(".menu.vertical").EntandoWoodMenu({
+				menuToggler: "subMenuToggler", 
+				showTools: true, 
+				onOpen: function(toggler, menu) {
+					//console.log("open", toggler, menu);
+				},
+				onClose: function(toggler, menu) {
+					//console.log("close", toggler, menu);
+				},
+				expandAllLabel: "Expand all",
+				collapseAllLabel: "Collapse All"
+			});
+		});
+	</script>
+
+	<style>
+		.noscreen {
+			position: absolute;
+			top: -1000em;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+		}
+		.subMenuToggler {
+			background-color: red;
+		}
+	</style>
+</head>
+<body>
+	<ul class="entando-wood-vertical menu vertical">
+		<li class="closedmenu"><a href="#" rel="fagiano_utenze" id="menu_utenze" class="subMenuToggler">Accounts</a>
+			<div class="menuToggler noscreen" id="fagiano_utenze"><div class="menuToggler-1"><div class="menuToggler-2">
+				<ul>
+					<li><a href="do/User/intro.action">Users</a></li>
+					<li><a href="do/Role/intro.action">User Roles</a></li>
+				</ul>
+			</div></div></div>
+		</li>
+		<li><a href="do/Group/intro.action" id="menu_gruppi">Groups</a></li>
+		<li><a href="do/Category/viewTree.action" id="menu_categorie">Categories</a></li>
+		<li class="closedmenu"><a href="#" rel="fagiano_lingue" class="subMenuToggler" id="menu_lingue">Languages</a>
+			<div class="menuToggler noscreen" id="fagiano_lingue"><div class="menuToggler-1"><div class="menuToggler-2">
+				<ul>
+					<li><a href="do/Lang/list.action">Languages List</a></li>
+					<li><a href="do/LocaleString/intro.action">Labels</a></li>
+				</ul>
+			</div></div></div>
+		</li>
+		<li class="closedmenu"><a href="#" rel="fagiano_plugins" class="subMenuToggler" id="menu_plugins">Plugins</a>
+			<div class="menuToggler noscreen" id="fagiano_plugins"><div class="menuToggler-1"><div class="menuToggler-2">
+				<ul>		
+					<li class="closedmenu"><a href="#" rel="fagiano_jpcrowdsourcing" id="menu_jpcrowdsourcing" class="subMenuToggler" tabindex="1">Crowd Sourcing</a>
+						<div id="fagiano_jpcrowdsourcing" class="menuToggler noscreen"><div class="menuToggler-1"><div class="menuToggler-2">
+							<ul>
+								<li><a href="do/jpcrowdsourcing/Idea/list.action" tabindex="2">Ideas</a></li>
+								<li><a href="do/jpcrowdsourcing/Idea/Comment/list.action" tabindex="3">Comments</a></li>
+								<li><a href="do/jpcrowdsourcing/Config/entryConfig.action" tabindex="4">Configure</a></li>
+							</ul>
+						</div></div></div>
+					</li>
+					<li class="closedmenu"><a href="#" rel="fagiano_jpmail" id="fagiano_menu_jpmail" class="subMenuToggler" tabindex="5">eMail Management</a>
+						<div id="fagiano_jpmail" class="menuToggler noscreen">
+							<div class="menuToggler-1">
+								<div class="menuToggler-2">
+									<ul>
+										<li><a href="do/jpmail/MailConfig/editSmtp.action" tabindex="6">Smtp</a></li>
+										<li><a href="do/jpmail/MailConfig/viewSenders.action" tabindex="7">Senders</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</li>
+					<li><a href="do/jpavatar/Avatar/edit.action" tabindex="8">Avatar</a></li>
+					<li class="closedmenu"><a href="#" rel="fagiano_jpwebdynamicform" id="menu_jpwebdynamicform" class="subMenuToggler">Dynamic Web Forms</a>
+						<div class="menuToggler noscreen" id="fagiano_jpwebdynamicform"><div class="menuToggler-2"><div class="menuToggler-2">
+							<ul>
+								<li><a href="do/jpwebdynamicform/Message/Operator/list.action" tabindex="9">Message List</a></li>
+								<li><a href="do/jpwebdynamicform/Message/Config/list.action" tabindex="10">Configuration</a></li>
+								<li><a href="do/Entity/initViewEntityTypes.action?entityManagerName=jpwebdynamicformMessageManager" tabindex="11">Message Types</a></li>
+							</ul>
+						</div></div></div>
+					</li>
+					<li><a href="do/jpmyportalplus/Config/edit.action" tabindex="12">My Portal</a></li>
+					<li class="closedmenu"><a href="#" rel="fagiano_jpuserprofile" id="menu_jpuserprofile" class="subMenuToggler" tabindex="13">Profile Management</a>
+						<div id="fagiano_jpuserprofile" class="menuToggler noscreen"><div class="menuToggler-1"><div class="menuToggler-2">
+							<ul>
+								<li><a href="do/jpuserprofile/Profile/edit.action" tabindex="14">Your Profile</a></li>
+								<li><a href="do/jpuserprofile/Search/list.action" tabindex="15">Profiles</a></li>
+								<li><a href="do/Entity/initViewEntityTypes.action?entityManagerName=jpuserprofileUserProfileManager" tabindex="16">Profile Types</a></li>
+							</ul>
+						</div></div></div>
+					</li><li class="closedmenu"><a href="#" rel="fagiano_jpforum" id="menu_jpforum" class="subMenuToggler">Forum</a>
+					<div id="fagiano_jpforum" class="menuToggler noscreen"><div class="menuToggler-1"><div class="menuToggler-2">
+						<ul>
+							<li><a href="do/jpforum/Section/viewTree.action" tabindex="17">Forum Sections</a></li>
+							<li><a href="do/jpforum/Config/view.action" tabindex="18">Forum Configuration</a></li>
+						</ul>
+					</div></div></div>
+				</li>
+			</ul>
+		</div></div></div>
+	</li>
+	
+</ul>
+
+</body>
+</html>
