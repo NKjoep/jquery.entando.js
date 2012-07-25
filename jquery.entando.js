@@ -19,34 +19,27 @@
 	};
 
 	var WoodMenu = function (el, opt) {
-		var getSubMenu = opt.menuRetriever;
-		if (opt.showTools.toString()=='true') {
-			var toolbar = $('<p class="'+opt.toolClass+'"><span class="intro">'+opt.toolTextIntro+'</span> <a href="#" rel="expand" title="'+opt.toolexpandAllLabelTitle+'">'+opt.expandAllLabel+'</a> <a href="#" rel="collapse" title="'+opt.toolcollapseLabelTitle+'">'+opt.collapseAllLabel+'</a></p>');
-			$(el).before(toolbar);
-			$(toolbar).on('click', 'a[rel="expand"]', {WoodMenu: $(el), WoodMenuOpts: opt}, function(ev) {
-				ev.preventDefault();
-				var wood = ev.data.WoodMenu;
-				var opt = ev.data.WoodMenuOpts;
-				wood.find("."+opt.menuToggler).each(function(index, toggler){
-					var toggler= $(toggler);
-					var submenu = getSubMenu(toggler);
-					var togglerParent = toggler.parent();
-					submenu.removeClass(opt.hideClass);
-					submenu.addClass(opt.showClass);
-					togglerParent.removeClass(opt.closedClass);
-					togglerParent.addClass(opt.openClass);
-					if (opt.onOpen) {
-						opt.onOpen(toggler, submenu);
-					}
-					
-				});
-			});
+		var Wood = this.Wood = $(el);
+		var opt = this.opt = opt;
 
-			$(toolbar).on('click', 'a[rel="collapse"]', {WoodMenu: $(el), WoodMenuOpts: opt}, function(ev) {
-				ev.preventDefault();
-				var wood = ev.data.WoodMenu;
-				var opt = ev.data.WoodMenuOpts;
-				wood.find("."+opt.menuToggler).each(function(index, toggler){
+		var getSubMenu = this.getSubMenu = opt.menuRetriever;
+		var expandAll = this.expandAll = function() {
+			Wood.find("."+opt.menuToggler).each(function(index, toggler){
+				var toggler= $(toggler);
+				var submenu = getSubMenu(toggler);
+				var togglerParent = toggler.parent();
+				submenu.removeClass(opt.hideClass);
+				submenu.addClass(opt.showClass);
+				togglerParent.removeClass(opt.closedClass);
+				togglerParent.addClass(opt.openClass);
+				if (opt.onOpen) {
+					opt.onOpen(toggler, submenu);
+				}
+				
+			});
+		};
+		var collapseAll = this.collapseAll = function() {
+			Wood.find("."+opt.menuToggler).each(function(index, toggler){
 					var toggler= $(toggler);
 					var submenu = getSubMenu(toggler);
 					var togglerParent = toggler.parent();
@@ -58,6 +51,19 @@
 						opt.onOpen(toggler, submenu);
 					}
 				});
+		};
+
+		if (opt.showTools.toString()=='true') {
+			var toolbar = $('<p class="'+opt.toolClass+'"><span class="intro">'+opt.toolTextIntro+'</span> <a href="#" rel="expand" title="'+opt.toolexpandAllLabelTitle+'">'+opt.expandAllLabel+'</a> <a href="#" rel="collapse" title="'+opt.toolcollapseLabelTitle+'">'+opt.collapseAllLabel+'</a></p>');
+			$(el).before(toolbar);
+			$(toolbar).on('click', 'a[rel="expand"]', {WoodMenu: $(el), WoodMenuOpts: opt}, function(ev) {
+				ev.preventDefault();
+				expandAll();
+			});
+
+			$(toolbar).on('click', 'a[rel="collapse"]', {WoodMenu: $(el), WoodMenuOpts: opt}, function(ev) {
+				ev.preventDefault();
+				collapseAll();
 			});
 
 		}
@@ -85,6 +91,9 @@
 				}
 			}
 		});
+		if (opt.onStart) {
+			opt.onStart.apply(this);
+		}
 		return this;
 	};
 

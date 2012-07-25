@@ -20,6 +20,9 @@
 				onClose: function(toggler, menu) {
 					//console.log("close", toggler, menu);
 				},
+				onStart: function() {
+					this.collapseAll();
+				},
 				expandAllLabel: "Expand all",
 				collapseAllLabel: "Collapse All"
 			});
