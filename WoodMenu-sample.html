@@ -9,7 +9,10 @@
 	<script type="text/javascript">
 		$(document).ready(function() {
 			jQuery(".menu.vertical").EntandoWoodMenu({
-				menuToggler: "subMenuToggler", 
+				menuToggler: "subMenuToggler",
+				menuRetriever: function(toggler) {
+					return $("#"+toggler.attr("rel"));
+				},
 				showTools: true, 
 				onOpen: function(toggler, menu) {
 					//console.log("open", toggler, menu);
@@ -37,7 +40,7 @@
 	</style>
 </head>
 <body>
-	<ul class="entando-wood-vertical menu vertical">
+	<ul class="menu vertical">
 		<li class="closedmenu"><a href="#" rel="fagiano_utenze" id="menu_utenze" class="subMenuToggler">Accounts</a>
 			<div class="menuToggler noscreen" id="fagiano_utenze"><div class="menuToggler-1"><div class="menuToggler-2">
 				<ul>

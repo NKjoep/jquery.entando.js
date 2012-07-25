@@ -14,10 +14,12 @@
 		toolClass: "toolClass", //classe css utilizzata per gli strumenti
 		toolTextIntro: 'You can expand the tree structure, or collapse it, using the appropriate links.', //text before toolbar links
 		toolexpandAllLabelTitle: 'Expand All Tree',	//title for expand  all
-		toolcollapseLabelTitle: 'Collapse All Tree' //title for close all
+		toolcollapseLabelTitle: 'Collapse All Tree', //title for close all
+		menuRetriever: function(toggler) { return $("#"+toggler.attr("rel")); }
 	};
 
 	var WoodMenu = function (el, opt) {
+		var getSubMenu = opt.menuRetriever;
 		if (opt.showTools.toString()=='true') {
 			var toolbar = $('<p class="'+opt.toolClass+'"><span class="intro">'+opt.toolTextIntro+'</span> <a href="#" rel="expand" title="'+opt.toolexpandAllLabelTitle+'">'+opt.expandAllLabel+'</a> <a href="#" rel="collapse" title="'+opt.toolcollapseLabelTitle+'">'+opt.collapseAllLabel+'</a></p>');
 			$(el).before(toolbar);
@@ -27,17 +29,16 @@
 				var opt = ev.data.WoodMenuOpts;
 				wood.find("."+opt.menuToggler).each(function(index, toggler){
 					var toggler= $(toggler);
-					var submenu = $("#"+toggler.attr("rel"));
+					var submenu = getSubMenu(toggler);
 					var togglerParent = toggler.parent();
-					if (submenu.hasClass(opt.hideClass)) {
-						submenu.removeClass(opt.hideClass);
-						submenu.addClass(opt.showClass);
-						togglerParent.removeClass(opt.closedClass);
-						togglerParent.addClass(opt.openClass);
-						if (opt.onOpen) {
-							opt.onOpen(toggler, submenu);
-						}
+					submenu.removeClass(opt.hideClass);
+					submenu.addClass(opt.showClass);
+					togglerParent.removeClass(opt.closedClass);
+					togglerParent.addClass(opt.openClass);
+					if (opt.onOpen) {
+						opt.onOpen(toggler, submenu);
 					}
+					
 				});
 			});
 
@@ -47,16 +48,14 @@
 				var opt = ev.data.WoodMenuOpts;
 				wood.find("."+opt.menuToggler).each(function(index, toggler){
 					var toggler= $(toggler);
-					var submenu = $("#"+toggler.attr("rel"));
+					var submenu = getSubMenu(toggler);
 					var togglerParent = toggler.parent();
-					if (!submenu.hasClass(opt.hideClass)) {
-						submenu.addClass(opt.hideClass);
-						submenu.removeClass(opt.showClass);
-						togglerParent.removeClass(opt.closedClass);
-						togglerParent.addClass(opt.openClass);
-						if (opt.onClose) {
-							opt.onOpen(toggler, submenu);
-						}
+					submenu.addClass(opt.hideClass);
+					submenu.removeClass(opt.showClass);
+					togglerParent.addClass(opt.closedClass);
+					togglerParent.removeClass(opt.openClass);
+					if (opt.onClose) {
+						opt.onOpen(toggler, submenu);
 					}
 				});
 			});
@@ -66,7 +65,7 @@
 		$(el).on('click', "."+opt.menuToggler, function(ev) {
 			ev.preventDefault();
 			var toggler = $(ev.target);
-			var submenu = $("#"+toggler.attr("rel"));
+			var submenu = getSubMenu(toggler);
 			var togglerParent = toggler.parent();
 			submenu.toggleClass(opt.hideClass);
 			if (submenu.hasClass(opt.hideClass)) {
