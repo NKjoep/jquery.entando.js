@@ -24,7 +24,8 @@
 					this.collapseAll();
 				},
 				expandAllLabel: "Expand all",
-				collapseAllLabel: "Collapse All"
+				collapseAllLabel: "Collapse All",
+				startIndex: 'fagianonode_homepage_public_user4'
 			});
 		});
 	</script>
@@ -118,7 +119,61 @@
 		<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_campaignfrm" value="campaignfrm"><label for="fagianonode_campaignfrm">Campaign Form</label>
 </li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_thankyoureg" value="thankyoureg"><label for="fagianonode_thankyoureg">Thank You for Register</label>
 </li></ul>
-</li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage_registered_user" value="homepage_registered_user"><label for="fagianonode_homepage_registered_user">Registered User</label>
+</li>
+
+<li class="page tree_node_flag">
+	<input 
+		type="radio" 
+		name="selectedNode" 
+		id="fagianonode_homepage_public_user2" 
+		value="homepage_public_user" 
+		class="subTreeToggler tree_homepage_public_user" />
+			<label for="fagianonode_homepage_public_user2">
+				Public User 2
+			</label>
+	<ul class="treeToggler" id="tree_homepage_public_user2">
+		<li>we</li>
+		<li>
+			
+			<input 
+				type="radio" 
+				name="selectedNode" 
+				id="fagianonode_homepage_public_user4" 
+				value="homepage_public_user" 
+				class="subTreeToggler tree_homepage_public_user" />
+					<label for="fagianonode_homepage_public_user4">
+						Sub Public User 2
+					</label>
+			<ul class="treeToggler" id="tree_homepage_public_user4">
+				<li>we</li>
+				<li>we2</li>
+			</ul>
+
+
+		</li>
+	</ul>
+</li>
+
+<li class="page tree_node_flag">
+	<input 
+		type="radio" 
+		name="selectedNode" 
+		id="fagianonode_homepage_public_user3" 
+		value="homepage_public_user" 
+		class="subTreeToggler" />
+			<label for="fagianonode_homepage_public_user3">
+				Public User 3
+			</label>
+	<ul class="treeToggler" id="tree_homepage_public_user3">
+		<li>we</li>
+		<li>we2</li>
+	</ul>
+</li>
+
+	
+
+
+<li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage_registered_user" value="homepage_registered_user"><label for="fagianonode_homepage_registered_user">Registered User</label>
 </li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage_company_user" value="homepage_company_user"><label for="fagianonode_homepage_company_user">Company User</label>
 </li><li class="page tree_node_flag"><input type="radio" name="selectedNode" id="fagianonode_homepage_admin_user" value="homepage_admin_user"><label for="fagianonode_homepage_admin_user">Admin User</label>
 </li></ul>
