@@ -1,4 +1,4 @@
-jquery.entando.js
-=================
+# jquery.entando.js
 
-Entando javascript utility with jQuery
+
+Entando javascript utility written with jQuery
