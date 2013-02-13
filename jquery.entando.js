@@ -36,7 +36,7 @@
 		var TabooTogglerRoot = this.TabooTogglerRoot = $(el);
 		var opt = this.opt = opt;
 		var togglers = $(opt.tabTogglers, el)
-		
+
 		togglers.on('click', function(ev) {
 			ev.preventDefault();
 			$.each(togglers, function(index, togg) {
@@ -55,19 +55,22 @@
 			$(self).trigger('tab', [currentTab, currentToggler]);
 		});
 
-		$.each(togglers, function(index, togg) {
-			var tab = opt.togglerTabRetriever($(togg));
+		$.each(togglers, function(index, toggler) {
+			toggler = $(toggler);
+			var tab = opt.togglerTabRetriever($(toggler));
 			tab.addClass(opt.hideClass);
+			toggler.removeClass(opt.activeTabClass);
 		});
 
+		//init a tab
 		var done = false;
+		var togglerToActivate;
+		var tabToActivate;
+
 		if (opt.startTabIndex && /^\d+$/.test(opt.startTabIndex)) {
 			//startTabIndex?
-			var togg = $(togglers[new Number(opt.startTabIndex)]);
-			togg.addClass(opt.activeTabClass);
-			var tabToActivate = opt.togglerTabRetriever(togg);
-			tabToActivate.removeClass(opt.hideClass);
-			tabToActivate.addClass(opt.showClass);
+			togglerToActivate = $(togglers[new Number(opt.startTabIndex)]);
+			tabToActivate = opt.togglerTabRetriever(togglerToActivate);
 			done = true;
 		}
 		else if (opt.startTab!==undefined && opt.startTab!==null) {
@@ -81,34 +84,31 @@
 				tab = $(startTabRef);
 			}
 			if (tab.length==1) {
-				tab.removeClass(opt.hideClass);
-				tab.addClass(opt.showClass);
-				var togg = opt.tabTogglerRetriever(tab, TabooTogglerRoot);
-				togglers.removeClass(opt.activeTabClass);
-				togg.addClass(opt.activeTabClass);
+				tabToActivate = tab;
+				togglerToActivate = opt.tabTogglerRetriever(tab, TabooTogglerRoot);
 				done = true;
 			}
 		}
 		else if (document.location.hash.length > 0) {
+			//a hash??
 			var testString = document.location.hash;
 			var tab = $(testString);
 			if (tab.length==1) {
-				togglers.removeClass(opt.activeTabClass);
-				tab.removeClass(opt.hideClass);
-				tab.addClass(opt.showClass);
-				var toggler = opt.tabTogglerRetriever(tab, TabooTogglerRoot);
-				toggler.addClass(opt.activeTabClass);
+				tabToActivate = tab;
+				togglerToActivate = opt.tabTogglerRetriever(tab, TabooTogglerRoot);
 				done = true;
 			}
 		}
 		if (!done) {
-			//start from the first
-			var togg = $(togglers[0]);
-			togg.addClass(opt.activeTabClass);
-			var tabToActivate = opt.togglerTabRetriever(togg);
-			tabToActivate.removeClass(opt.hideClass);
-			tabToActivate.addClass(opt.showClass);
+			//ok, start from the first
+			togglerToActivate = $(togglers[0]);
+			tabToActivate = opt.togglerTabRetriever(togglerToActivate);
 		}
+
+		togglerToActivate.addClass(opt.activeTabClass);
+		tabToActivate.removeClass(opt.hideClass);
+		tabToActivate.addClass(opt.showClass);
+
 		return this;
 	};
 
