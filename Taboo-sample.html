@@ -1,0 +1,66 @@
+<!doctype>
+<html>
+<head>
+	<title>Taboo test page</title>
+	<script type="text/javascript" src="jquery-1.7.2.min.js"></script>
+	
+	<script type="text/javascript" src="jquery.entando.js"></script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			jQuery(".menu.horizontal").EntandoTaboo({
+				//startTab: $("#it_tab") //{String|Element}
+				//startTabIndex: 1 //{String|Number}
+			});
+		});
+	</script>
+
+	<style>
+		.noscreen {
+			position: absolute;
+			top: -1000em;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+		}
+		.tab-toggle {
+			background-color: red;
+		}
+		.activetab {
+			background-color: yellow;
+		}
+	</style>
+</head>
+<body>
+
+	<ul class="menu horizontal tab-toggle-bar">
+		<li>
+			<a href="#info" id="info_tab_quickmenu" class="tab-toggle">
+				<abbr>General</abbr>
+			</a>
+		</li>
+		<li>
+			<a href="#en_tab" id="en_tab_quickmenu" class="tab-toggle">
+				English
+			</a>
+		</li>
+		<li>
+			<a href="#it_tab" id="it_tab_quickmenu" class="tab-toggle">
+				Italian
+			</a>
+		</li>
+	</ul>
+	<form class="tab-container">
+		<div id="info" class="tab">
+			General tab content
+		</div>
+		<div id="en_tab" class="tab">
+			English tab content
+		</div>
+		<div id="it_tab" class="tab">
+			Italian tab content
+		</div>
+	</form>
+
+</body>
+</html>

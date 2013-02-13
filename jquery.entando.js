@@ -1,3 +1,148 @@
+//taboo start
+!function ($) {
+	"use strict"; // jshint ;_;
+	var sign = 'Entando.Taboo';
+	
+	var defaultOptions = {
+		//morto tabs: "tab",					//classe dei contenitori dei tab
+		startTabIndex: null,			//quale tab mostrare per primo (vince su startTab)
+		startTab: null,					//come sopra però arriva un ID
+		activeTabClass: "activetab",	//class css applicata al toggler attivo
+		hideClass: "noscreen",			//classe css che viene applicata in stato "nascosto"
+		showClass: "showClass",			//classe css che viene applicata in stato "visibile"
+		anchorTab: "_quickmenu",			//backlinks id suffix
+		tabTogglers: 'a.tab-toggle',
+		togglerTabRetriever: function(toggler) {
+			var tabId = toggler.attr('href');
+			return $(tabId);
+		},
+		tabTogglerRetriever: function(tab, root) {
+			var id = tab.attr('id');
+			if (root) {
+				return $('[href="#'+id+'"]', root);
+			}
+			else {
+				return $('[href="#'+id+'"]');
+			}
+		}
+		//startIndex: ""
+		//onOpen: function(toggler, submenu) {},
+		//onClose: function(toggler, submenu) {},
+		//onStart: function() {},
+	};
+
+	var Taboo = function (el, opt) {
+		var self = this;
+		var TabooTogglerRoot = this.TabooTogglerRoot = $(el);
+		var opt = this.opt = opt;
+		var togglers = $(opt.tabTogglers, el)
+		var showTab = this.showTab = function(toggler) {
+			var submenu = getSubMenu(toggler);
+			var togglerParent = toggler.parent();
+			submenu.addClass(opt.showClass);
+			submenu.removeClass(opt.hideClass);
+			togglerParent.removeClass(opt.closedClass);
+			togglerParent.addClass(opt.openClass);
+			if (opt.onOpen) {
+				opt.onOpen(toggler, submenu);
+			}
+		};
+		
+		togglers.on('click', function(ev) {
+			ev.preventDefault();
+			$.each(togglers, function(index, togg) {
+				$(togg).removeClass(opt.activeTabClass);
+			});
+			var currentToggler = $(this);
+			var currentTab = opt.togglerTabRetriever(currentToggler);
+			$.each(togglers, function(index, togg) {
+				var tab = opt.togglerTabRetriever($(togg));
+				tab.addClass(opt.hideClass);
+				tab.removeClass(opt.showClass);
+			})
+			currentToggler.addClass(opt.activeTabClass);
+			currentTab.addClass(opt.showClass);
+			currentTab.removeClass(opt.hideClass);
+		});
+
+		$.each(togglers, function(index, togg) {
+			var tab = opt.togglerTabRetriever($(togg));
+			tab.addClass(opt.hideClass);
+		});
+
+		var done = false;
+		if (opt.startTabIndex && /^\d+$/.test(opt.startTabIndex)) {
+			//startTabIndex?
+			var togg = $(togglers[new Number(opt.startTabIndex)]);
+			togg.addClass(opt.activeTabClass);
+			var tabToActivate = opt.togglerTabRetriever(togg);
+			tabToActivate.removeClass(opt.hideClass);
+			tabToActivate.addClass(opt.showClass);
+			done = true;
+		}
+		else if (opt.startTab!==undefined && opt.startTab!==null) {
+		 	//startTab?
+			var startTabRef = opt.startTab;
+			var tab;
+			if ($.type(startTabRef) == 'string') {
+				tab = $('#'+startTabRef);
+			}
+			else if ($.type(startTabRef) == 'object') {
+				tab = $(startTabRef);
+			}
+			if (tab.length==1) {
+				tab.removeClass(opt.hideClass);
+				tab.addClass(opt.showClass);
+				var togg = opt.tabTogglerRetriever(tab, TabooTogglerRoot);
+				togglers.removeClass(opt.activeTabClass);
+				togg.addClass(opt.activeTabClass);
+				done = true;
+			}
+		}
+		else if (document.location.hash.length > 0) {
+			var testString = document.location.hash;
+			var tab = $(testString);
+			if (tab.length==1) {
+				togglers.removeClass(opt.activeTabClass);
+				tab.removeClass(opt.hideClass);
+				tab.addClass(opt.showClass);
+				var toggler = opt.tabTogglerRetriever(tab, TabooTogglerRoot);
+				toggler.addClass(opt.activeTabClass);
+				done = true;
+			}
+		}
+		if (!done) {
+			//start from the first
+			var togg = $(togglers[0]);
+			togg.addClass(opt.activeTabClass);
+			var tabToActivate = opt.togglerTabRetriever(togg);
+			tabToActivate.removeClass(opt.hideClass);
+			tabToActivate.addClass(opt.showClass);
+		}
+		return this;
+	};
+
+	$.fn.EntandoTaboo = function (userreqopt) {
+		var options = $.extend({},defaultOptions, userreqopt);
+		var tabDone = [];
+		this.each(function () {
+			var $this = $(this);
+			var data = $this.data(sign);
+			if (!data) {
+				data = new Taboo(this, options);
+				$this.data(sign, data);
+			}
+			tabDone.push(data);
+		});
+		return tabDone;
+	};
+
+	$.fn.EntandoTaboo.Constructor = Taboo;
+}(window.jQuery);
+//taboo end
+
+
+//wood
 !function ($) {
 	"use strict"; // jshint ;_;
 	var sign = 'Entando.Wood.Menu';
@@ -121,3 +266,4 @@
 
 	$.fn.EntandoWoodMenu.Constructor = Wood;
 }(window.jQuery);
+//wood end
