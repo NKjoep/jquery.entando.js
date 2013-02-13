@@ -36,17 +36,6 @@
 		var TabooTogglerRoot = this.TabooTogglerRoot = $(el);
 		var opt = this.opt = opt;
 		var togglers = $(opt.tabTogglers, el)
-		var showTab = this.showTab = function(toggler) {
-			var submenu = getSubMenu(toggler);
-			var togglerParent = toggler.parent();
-			submenu.addClass(opt.showClass);
-			submenu.removeClass(opt.hideClass);
-			togglerParent.removeClass(opt.closedClass);
-			togglerParent.addClass(opt.openClass);
-			if (opt.onOpen) {
-				opt.onOpen(toggler, submenu);
-			}
-		};
 		
 		togglers.on('click', function(ev) {
 			ev.preventDefault();
@@ -63,6 +52,7 @@
 			currentToggler.addClass(opt.activeTabClass);
 			currentTab.addClass(opt.showClass);
 			currentTab.removeClass(opt.hideClass);
+			$(self).trigger('tab', [currentTab, currentToggler]);
 		});
 
 		$.each(togglers, function(index, togg) {

@@ -8,10 +8,17 @@
 
 	<script type="text/javascript">
 		$(document).ready(function() {
-			jQuery(".menu.horizontal").EntandoTaboo({
+			var taboo = jQuery(".menu.horizontal").EntandoTaboo({
 				//startTab: $("#it_tab") //{String|Element}
 				//startTabIndex: 1 //{String|Number}
 			});
+
+			/*
+			$(taboo).on('tab', function(tab, toggler) {
+				console.log(new Date(), 'tabbed: ', tab, toggler);
+			})
+			*/
+
 		});
 	</script>
 
