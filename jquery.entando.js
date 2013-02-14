@@ -132,7 +132,7 @@
 //taboo end
 
 
-//wood
+//wood start
 !function ($) {
 	"use strict"; // jshint ;_;
 	var sign = 'Entando.Wood.Menu';
@@ -144,17 +144,17 @@
 		openClass: "openmenu", //css class used when the branch is open
 		closedClass: "closedmenu", //css class used when the branch is closed
 		showTools: false, //show the toolbar open/close all?
-		expandAllLabel: "+", //etichetta per il link che "espande tutto"
-		collapseAllLabel: "-", //etichetta per il link che "chiude tutto"
-		toolClass: "toolClass", //classe css utilizzata per gli strumenti
-		toolTextIntro: 'You can expand the tree structure, or collapse it, using the appropriate links.', //text before toolbar links
+		expandAllLabel: "+", //label "expand all"
+		collapseAllLabel: "-", //label "collapse all"
+		toolClass: "toolClass", //css class for the toolbox
+		toolTextIntro: 'You can expand the tree structure, or collapse it, using the appropriate links.', //intro text before toolbar links
 		toolexpandAllLabelTitle: 'Expand All Tree',	//title for expand  all
 		toolcollapseLabelTitle: 'Collapse All Tree', //title for close all
 		menuRetriever: function(toggler) { return $("#"+toggler.attr("rel")); }
-		//startIndex: ""
-		//onOpen: function(toggler, submenu) {},
-		//onClose: function(toggler, submenu) {},
-		//onStart: function() {},
+		//startIndex: "" //optional: {String|Number} choose which open at start
+		//onOpen: function(toggler, submenu) {}, //optional: called on open
+		//onClose: function(toggler, submenu) {}, //optional: called on close
+		//onStart: function() {}, //optional: called on start
 	};
 
 	var Wood = function (el, opt) {
@@ -162,12 +162,12 @@
 		var opt = this.opt = opt;
 		var getSubMenu = this.getSubMenu = opt.menuRetriever;
 		var expandAll = this.expandAll = function() {
-			WoodRoot.find("."+opt.menuToggler).each(function(index, toggler){
+			$("."+opt.menuToggler, WoodRoot).each(function(index, toggler){
 				openWood($(toggler));
 			});
 		};
 		var collapseAll = this.collapseAll = function() {
-			WoodRoot.find("."+opt.menuToggler).each(function(index, toggler){
+			$("."+opt.menuToggler, WoodRoot).each(function(index, toggler){
 				closeWood($(toggler));
 			});
 		};
@@ -234,7 +234,7 @@
 		}
 
 		if (opt.startIndex!==undefined) {
-			openAllWoodFromRootTo(this.WoodRoot.find('#'+opt.startIndex));
+			openAllWoodFromRootTo($('#'+opt.startIndex, this.WoodRoot));
 		}
 		return this;
 	};
