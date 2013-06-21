@@ -4,7 +4,7 @@
 	var sign = 'Entando.Taboo';
 	
 	var defaultOptions = {
-		//morto tabs: "tab",					//classe dei contenitori dei tab
+		//morto tabs: "tab",			//classe dei contenitori dei tab
 		startTabIndex: null,			//quale tab mostrare per primo (vince su startTab)
 		startTab: null,					//come sopra però arriva un ID
 		activeTabClass: "activetab",	//class css applicata al toggler attivo
@@ -170,6 +170,8 @@
 			$("."+opt.menuToggler, WoodRoot).each(function(index, toggler){
 				closeWood($(toggler));
 			});
+			$(":checked", el).prop('checked',false);
+			console.log($(":checked", el));
 		};
 		var openWood = this.openWood = function(toggler) {
 			var submenu = getSubMenu(toggler);
@@ -225,7 +227,6 @@
 
 		}
 		$(el).on('click', "."+opt.menuToggler, function(ev) {
-			ev.preventDefault();
 			var toggler = $(ev.target);
 			toggleWood(toggler);
 		});
