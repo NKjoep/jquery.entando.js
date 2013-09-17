@@ -1,22 +1,26 @@
+/*
+	2013-09-17: touchstart events, few translations
+*/
+
 //taboo start
 !function ($) {
 	"use strict"; // jshint ;_;
 	var sign = 'Entando.Taboo';
-	
+
 	var defaultOptions = {
-		//morto tabs: "tab",			//classe dei contenitori dei tab
-		startTabIndex: null,			//quale tab mostrare per primo (vince su startTab)
-		startTab: null,					//come sopra però arriva un ID
-		activeTabClass: "activetab",	//class css applicata al toggler attivo
-		hideClass: "noscreen",			//classe css che viene applicata in stato "nascosto"
-		showClass: "showClass",			//classe css che viene applicata in stato "visibile"
-		anchorTab: "_quickmenu",			//backlinks id suffix
-		tabTogglers: 'a.tab-toggle',
-		togglerTabRetriever: function(toggler) {
+		//morto tabs: "tab", //css class tab containers
+		startTabIndex: null, //(number) which tab is active (precedence over startTab)
+		startTab: null, //(html id) which tab is active
+		activeTabClass: "activetab", //css class when toggler is active
+		hideClass: "sr-only", //css class when hidden
+		showClass: "showClass", //css class when visible
+		anchorTab: "_quickmenu", //backlinks id suffix
+		tabTogglers: 'a.tab-toggle', //togglers selector
+		togglerTabRetriever: function(toggler) { //tab retriever function
 			var tabId = toggler.attr('href');
 			return $(tabId);
 		},
-		tabTogglerRetriever: function(tab, root) {
+		tabTogglerRetriever: function(tab, root) { //toggler retriever function
 			var id = tab.attr('id');
 			if (root) {
 				return $('[href="#'+id+'"]', root);
@@ -26,9 +30,9 @@
 			}
 		}
 		//startIndex: ""
-		//onOpen: function(toggler, submenu) {},
-		//onClose: function(toggler, submenu) {},
-		//onStart: function() {},
+		//onOpen: function(toggler, submenu) {}, //event fired when open
+		//onClose: function(toggler, submenu) {}, //event fired when closed
+		//onStart: function() {}, //event fired when started
 	};
 
 	var Taboo = function (el, opt) {
@@ -37,7 +41,7 @@
 		var opt = this.opt = opt;
 		var togglers = $(opt.tabTogglers, el)
 
-		togglers.on('click', function(ev) {
+		togglers.on('click touchstart', function(ev) {
 			ev.preventDefault();
 			$.each(togglers, function(index, togg) {
 				$(togg).removeClass(opt.activeTabClass);
@@ -136,10 +140,10 @@
 !function ($) {
 	"use strict"; // jshint ;_;
 	var sign = 'Entando.Wood.Menu';
-	
+
 	var defaultOptions = {
 		menuToggler: "toggler", //togglers css class
-		hideClass: "noscreen", //css class for hidden menu
+		hideClass: "sr-only", //css class for hidden menu
 		showClass: "undoNoscreen", //css class for visible menu
 		openClass: "openmenu", //css class used when the branch is open
 		closedClass: "closedmenu", //css class used when the branch is closed
@@ -171,7 +175,6 @@
 				closeWood($(toggler));
 			});
 			$(":checked", el).prop('checked',false);
-			console.log($(":checked", el));
 		};
 		var openWood = this.openWood = function(toggler) {
 			var submenu = getSubMenu(toggler);
@@ -210,23 +213,23 @@
 			$(toggler).parentsUntil(WoodRoot).children('.'+opt.menuToggler).each(function(index, togg){
 				openWood($(togg));
 			});
+			toggler.prop('checked', true);
 		};
 
 		if (opt.showTools.toString()=='true') {
 			var toolbar = $('<p class="'+opt.toolClass+'"><span class="'+opt.hideClass+'">'+opt.toolTextIntro+'</span> <a href="#" rel="expand" title="'+opt.toolexpandAllLabelTitle+'">'+opt.expandAllLabel+'</a> <a href="#" rel="collapse" title="'+opt.toolcollapseLabelTitle+'">'+opt.collapseAllLabel+'</a></p>');
 			$(el).before(toolbar);
-			$(toolbar).on('click', 'a[rel="expand"]', function(ev) {
+			$(toolbar).on('click touchstart', 'a[rel="expand"]', function(ev) {
 				ev.preventDefault();
 				expandAll();
 			});
-
-			$(toolbar).on('click', 'a[rel="collapse"]', function(ev) {
+			$(toolbar).on('click touchstart', 'a[rel="collapse"]', function(ev) {
 				ev.preventDefault();
 				collapseAll();
 			});
-
 		}
-		$(el).on('click', "."+opt.menuToggler, function(ev) {
+
+		$(el).on('click touchstart', "."+opt.menuToggler, function(ev) {
 			var toggler = $(ev.target);
 			toggleWood(toggler);
 		});
